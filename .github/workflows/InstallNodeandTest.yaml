@@ -1,5 +1,14 @@
 name: Install and Test Node App
-on: [push, workflow_dispatch]
+# on: [push, workflow_dispatch]
+on:
+  push:
+    branches:
+      - main
+      - 'features/**'
+    paths-ignore:
+      - '.github/workflow/*'
+      - README.md
+  workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
