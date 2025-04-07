@@ -1,0 +1,16 @@
+name: Install and Test node App
+on: [push, workflow_dispatch]
+jobs:
+    test:
+        runs-on: [ubuntu-latest, windows-latest, macos-latest]
+        steps:
+            - name: Install Node
+              uses: actions/setup-node@v4
+              with:
+                node-version: 20
+            - name: Check Node version
+              run: node -v
+            - name: Install Dependencies
+              run: npm ci
+            - name: Run Test
+              run: npm run test
