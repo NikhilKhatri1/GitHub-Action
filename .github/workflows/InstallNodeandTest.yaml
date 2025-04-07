@@ -1,16 +1,16 @@
-name: Install and Test node App
+name: Install and Test Node App
 on: [push, workflow_dispatch]
 jobs:
-    test:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Install Node
-              uses: actions/setup-node@v4
-              with:
-                node-version: 20
-            - name: Check Node version
-              run: node -v
-            - name: Install Dependencies
-              run: npm install
-            - name: Run Test
-              run: npm run test
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check Node version
+        run: node -v
+      - name: Install Dependencies
+        run: npm ci  # Use npm ci for clean installation based on package-lock.json
+      - name: Run Test
+        run: npm run test
