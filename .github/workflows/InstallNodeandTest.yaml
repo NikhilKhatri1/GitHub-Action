@@ -3,11 +3,11 @@ name: Install and Test Node App
 on:
   push:
     branches:
-      - main
-      - 'features/**'
+        - main
+        - 'features/**'
     paths-ignore:
-      - '.github/workflow/*'
-      - README.md
+        - '.github/workflow/*'
+        - README.md
   workflow_dispatch:
 jobs:
   test:
