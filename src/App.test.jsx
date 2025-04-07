@@ -9,6 +9,7 @@ test('renders Github Actions heading', () => {
   expect(headingElement).toBeInTheDocument();
 });
 
+// added Comment
 test('contains an h1 element', () => {
   const { container } = render(<App />);
   const h1Element = container.querySelector('h1');
