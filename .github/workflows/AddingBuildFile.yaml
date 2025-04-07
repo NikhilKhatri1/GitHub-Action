@@ -1,0 +1,72 @@
+name: Adding Build File in Project
+# on: [push, workflow_dispatch]
+on:
+  push:
+    branches:
+        - main
+        - 'features/**'
+    paths-ignore:
+        - '.github/workflows/*'
+        - README.md
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v4
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check Node version
+        run: node -v
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          # ubuntu-node-2313213
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: Install Dependencies
+        run: npm ci  # Use npm ci for clean installation based on package-lock.json
+      - name: Run Test
+        run: npm run test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v4
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check Node version
+        run: node -v
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          # ubuntu-node-2313213
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build Project
+        run: npm run build  
+      - name: Upload Dist Artifact
+        uses: actions/upload-artifact@v4
+        with:
+            name: dist-files
+            path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Dist Artifact
+        uses: actions/download-artifact@v4
+        with:
+            name: dist-files
+            path: dist
+      - name: Deploy
+        run: echo "Deploy Successfully"
+
