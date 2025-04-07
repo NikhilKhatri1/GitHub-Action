@@ -2,7 +2,7 @@ name: Install and Test node App
 on: [push, workflow_dispatch]
 jobs:
     test:
-        runs-on: [ubuntu-latest, windows-latest, macos-latest]
+        runs-on: ubuntu-latest
         steps:
             - name: Install Node
               uses: actions/setup-node@v4
