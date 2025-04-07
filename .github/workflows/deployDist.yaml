@@ -1,0 +1,11 @@
+name: Greeting
+on: [push, workflow_dispatch]
+jobs: 
+    greet:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get Code
+              run: |
+                echo "Cloning App..."
+                echo "${{toJson(github)}}"
+                git clone "https://github.com/${{github.repository}}.git"
