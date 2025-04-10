@@ -1,4 +1,4 @@
-name: Adding Build File in Project
+name: Deploy React Project
 on:
   push:
     branches:
